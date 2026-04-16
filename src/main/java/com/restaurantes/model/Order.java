@@ -11,7 +11,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    private LocalDateTime fecha;
+    private LocalDateTime fecha = LocalDateTime.now();
     private Double totalProce;
     private Double tip;//propina
     private Integer tableNumber;
@@ -70,8 +70,8 @@ public class Order {
         return NumeroPeople;
     }
 
-    public void setNumeroPeople(Integer NumeroPeople) {
-        NumeroPeople = NumeroPeople;
+    public void setNumeroPeople(Integer numeroPeople) {
+        NumeroPeople = numeroPeople;
     }
 
     public OrderStatus getOrderStatus() {

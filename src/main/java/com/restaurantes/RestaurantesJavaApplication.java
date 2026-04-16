@@ -3,11 +3,13 @@ package com.restaurantes;
 import com.restaurantes.model.*;
 import com.restaurantes.repository.DishRepository;
 import com.restaurantes.repository.EmployeeRepository;
+import com.restaurantes.repository.OrderRepository;
 import com.restaurantes.repository.RestaurantRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +29,8 @@ public class RestaurantesJavaApplication {
         RestaurantRepository restaurantRepository = context.getBean(RestaurantRepository.class);
         EmployeeRepository employeeRepository = context.getBean(EmployeeRepository.class);
         DishRepository dishRepository = context.getBean(DishRepository.class);
+        OrderRepository orderRepository = context.getBean(OrderRepository.class);
+
 
         // crear un objeto restaurante: new
         Restaurant nuevoRestaurante = new Restaurant(); // objeto
@@ -261,6 +265,37 @@ public class RestaurantesJavaApplication {
         Long restaurantId = restaurantSpain.getId();
         for (var plato: dishRepository.findByRestaurantIdOrderByPrice(restaurantId))
             System.out.println(plato);
+
+        //Crear un pedido
+        Order pedido1 = new Order();
+        pedido1.setNumeroPeople(5);
+        pedido1.setTableNumber(1);
+        pedido1.setRestaurant(restaurantSpain);
+        pedido1.setFecha(LocalDateTime.now());
+        pedido1.setTotalProce(20.7);
+        pedido1.setOrderStatus(OrderStatus.PENDING);
+        orderRepository.save(pedido1);
+
+        Order pedido2 = new Order();
+        pedido2.setNumeroPeople(2);
+        pedido2.setTableNumber(2);
+        pedido2.setRestaurant(restaurantJapan);
+        pedido2.setFecha(LocalDateTime.now());
+        pedido2.setTotalProce(22.7);
+        pedido2.setOrderStatus(OrderStatus.COMPLETED);
+        orderRepository.save(pedido2);
+
+        Order pedido3 = new Order();
+        pedido3.setNumeroPeople(5);
+        pedido3.setTableNumber(3);
+        pedido3.setRestaurant(restaurantSpain);
+        pedido3.setFecha(LocalDateTime.now());
+        pedido3.setTotalProce(10.7);
+        pedido3.setOrderStatus(OrderStatus.PENDING);
+        orderRepository.save(pedido3);
+
+
+
 
 
 
