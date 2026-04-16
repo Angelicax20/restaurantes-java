@@ -1,4 +1,5 @@
 package com.restaurantes.model;
+import com.restaurantes.model.enums.OrderStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -12,7 +13,7 @@ public class Order {
     @Column(name = "id", nullable = false)
     private Long id;
     private LocalDateTime fecha = LocalDateTime.now();
-    private Double totalProce;
+    private Double totalPrice;
     private Double tip;//propina
     private Integer tableNumber;
     private Integer NumeroPeople;
@@ -42,12 +43,12 @@ public class Order {
         this.fecha = fecha;
     }
 
-    public Double getTotalProce() {
-        return totalProce;
+    public Double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setTotalProce(Double totalProce) {
-        this.totalProce = totalProce;
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public Double getTip() {
@@ -95,7 +96,7 @@ public class Order {
         return "Order{" +
                 "id=" + id +
                 ", fecha=" + fecha +
-                ", totalProce=" + totalProce +
+                ", totalPrice=" + totalPrice +
                 ", tip=" + tip +
                 ", tableNumber=" + tableNumber +
                 ", NumeroPeople=" + NumeroPeople +

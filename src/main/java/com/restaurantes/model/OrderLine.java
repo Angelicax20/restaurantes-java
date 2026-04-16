@@ -18,6 +18,12 @@ public class OrderLine {
     @ManyToOne
     private Order order;
 
+    public OrderLine(Integer quantity, Dish dish, Order order) {
+        this.quantity = quantity;
+        this.dish = dish;
+        this.order = order;
+    }
+
     public OrderLine() {
     }
 
@@ -53,13 +59,14 @@ public class OrderLine {
         this.order = order;
     }
 
+    //no meter asociaciones solo atributos basicos
     @Override
     public String toString() {
         return "OrderLine{" +
                 "id=" + id +
                 ", quantity=" + quantity +
-                ", dish=" + dish +
-                ", order=" + order +
+              //  ", dish=" + dish +
+                //", order=" + order +
                 '}';
     }
 }

@@ -1,10 +1,10 @@
 package com.restaurantes;
 
 import com.restaurantes.model.*;
-import com.restaurantes.repository.DishRepository;
-import com.restaurantes.repository.EmployeeRepository;
-import com.restaurantes.repository.OrderRepository;
-import com.restaurantes.repository.RestaurantRepository;
+import com.restaurantes.model.enums.DishType;
+import com.restaurantes.model.enums.FoodType;
+import com.restaurantes.model.enums.OrderStatus;
+import com.restaurantes.repository.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -30,6 +30,7 @@ public class RestaurantesJavaApplication {
         EmployeeRepository employeeRepository = context.getBean(EmployeeRepository.class);
         DishRepository dishRepository = context.getBean(DishRepository.class);
         OrderRepository orderRepository = context.getBean(OrderRepository.class);
+        OrderLineRepository orderLineRepository = context.getBean(OrderLineRepository.class);
 
 
         // crear un objeto restaurante: new
@@ -272,7 +273,7 @@ public class RestaurantesJavaApplication {
         pedido1.setTableNumber(1);
         pedido1.setRestaurant(restaurantSpain);
         pedido1.setFecha(LocalDateTime.now());
-        pedido1.setTotalProce(20.7);
+        pedido1.setTotalPrice(20.7);
         pedido1.setOrderStatus(OrderStatus.PENDING);
         orderRepository.save(pedido1);
 
@@ -281,7 +282,7 @@ public class RestaurantesJavaApplication {
         pedido2.setTableNumber(2);
         pedido2.setRestaurant(restaurantJapan);
         pedido2.setFecha(LocalDateTime.now());
-        pedido2.setTotalProce(22.7);
+        pedido2.setTotalPrice(22.7);
         pedido2.setOrderStatus(OrderStatus.COMPLETED);
         orderRepository.save(pedido2);
 
@@ -290,10 +291,32 @@ public class RestaurantesJavaApplication {
         pedido3.setTableNumber(3);
         pedido3.setRestaurant(restaurantSpain);
         pedido3.setFecha(LocalDateTime.now());
-        pedido3.setTotalProce(10.7);
+        pedido3.setTotalPrice(10.7);
         pedido3.setOrderStatus(OrderStatus.PENDING);
         orderRepository.save(pedido3);
 
+
+        OrderLine ensalada = new OrderLine(1, plato1, pedido1);
+        OrderLine lentejas = new OrderLine(2, plato1, pedido2);
+        OrderLine tarta = new OrderLine(1, plato1, pedido3);
+        OrderLine sopa = new OrderLine(1, plato2, pedido1);
+
+        //GUARDAR EN BD
+       // orderLineRepository.saveAll(List.of(ensalada, lentejas, tarta,sopa));
+        List<OrderLine> lineasPedido = orderLineRepository.saveAll(List.of(ensalada, lentejas, tarta,sopa));
+
+        //CALCULAR PRECIO TOTAL EN JAVA:
+        Double totalPrice = 0.0;
+        for (OrderLine lineaPedido : lineasPedido) {
+
+            double precioLinea = lineaPedido.getDish().getPrice() *lineaPedido.getQuantity(); // precio del plato
+            totalPrice += precioLinea; // sumamos el precio de la linea al precio total del pedido
+
+        }
+
+        pedido1.setTotalPrice(totalPrice);
+        orderRepository.save(pedido1);
+        //CALCULAR PRECIO TOTAL DIRECTAMENTE EN BASE DE DATOS CON UNA QUERY
 
 
 
