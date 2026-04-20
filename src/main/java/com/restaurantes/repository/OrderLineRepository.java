@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface OrderLineRepository extends JpaRepository<OrderLine, Long> {
 
-    @Query("SELECT SUM(ol.quantity * ol.dish.price ) FROM OrderLine ol WHERE ol.order.id = :orderId")
+    @Query("SELECT SUM(ol.quantity * ol.dish.price ) FROM OrderLine ol WHERE ol.order.id = ?1")
     Double calculateTotalPrice(Long orderId);
 
 }

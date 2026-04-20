@@ -261,7 +261,6 @@ public class RestaurantesJavaApplication {
         // que traiga los platos de un restaurante ordenados por precio ascendente findAllBy
         // que traiga aquellos platos que no contengan alergenos
 
-
         System.out.println("TRAER PLATOS DE UN RESTAURANTE ORDENADOS POR PRECIO ASCENDENTE:");
         Long restaurantId = restaurantSpain.getId();
         for (var plato: dishRepository.findByRestaurantIdOrderByPrice(restaurantId))
@@ -274,32 +273,31 @@ public class RestaurantesJavaApplication {
         pedido1.setRestaurant(restaurantSpain);
         pedido1.setFecha(LocalDateTime.now());
         pedido1.setTotalPrice(20.7);
-        pedido1.setOrderStatus(OrderStatus.PENDING);
+        //pedido1.setOrderStatus(OrderStatus.PENDING);
         orderRepository.save(pedido1);
 
-        Order pedido2 = new Order();
-        pedido2.setNumeroPeople(2);
-        pedido2.setTableNumber(2);
-        pedido2.setRestaurant(restaurantJapan);
-        pedido2.setFecha(LocalDateTime.now());
-        pedido2.setTotalPrice(22.7);
-        pedido2.setOrderStatus(OrderStatus.COMPLETED);
-        orderRepository.save(pedido2);
-
-        Order pedido3 = new Order();
-        pedido3.setNumeroPeople(5);
-        pedido3.setTableNumber(3);
-        pedido3.setRestaurant(restaurantSpain);
-        pedido3.setFecha(LocalDateTime.now());
-        pedido3.setTotalPrice(10.7);
-        pedido3.setOrderStatus(OrderStatus.PENDING);
-        orderRepository.save(pedido3);
-
+//        Order pedido2 = new Order();
+//        pedido2.setNumeroPeople(2);
+//        pedido2.setTableNumber(2);
+//        pedido2.setRestaurant(restaurantJapan);
+//        pedido2.setFecha(LocalDateTime.now());
+//        pedido2.setTotalPrice(22.7);
+//        pedido2.setOrderStatus(OrderStatus.COMPLETED);
+//        orderRepository.save(pedido2);
+//
+//        Order pedido3 = new Order();
+//        pedido3.setNumeroPeople(5);
+//        pedido3.setTableNumber(3);
+//        pedido3.setRestaurant(restaurantSpain);
+//        pedido3.setFecha(LocalDateTime.now());
+//        pedido3.setTotalPrice(10.7);
+//        pedido3.setOrderStatus(OrderStatus.PENDING);
+//        orderRepository.save(pedido3);
 
         OrderLine ensalada = new OrderLine(1, plato1, pedido1);
-        OrderLine lentejas = new OrderLine(2, plato1, pedido2);
-        OrderLine tarta = new OrderLine(1, plato1, pedido3);
-        OrderLine sopa = new OrderLine(1, plato2, pedido1);
+        OrderLine lentejas = new OrderLine(2, plato2, pedido1);
+        OrderLine tarta = new OrderLine(1, plato3, pedido1);
+        OrderLine sopa = new OrderLine(1, plato4, pedido1);
 
         //GUARDAR EN BD
        // orderLineRepository.saveAll(List.of(ensalada, lentejas, tarta,sopa));
@@ -315,8 +313,16 @@ public class RestaurantesJavaApplication {
         }
 
         pedido1.setTotalPrice(totalPrice);
+        pedido1.setOrderStatus(OrderStatus.COMPLETED);
         orderRepository.save(pedido1);
+
         //CALCULAR PRECIO TOTAL DIRECTAMENTE EN BASE DE DATOS CON UNA QUERY
+
+        Double totalPrice2 =  orderLineRepository.calculateTotalPrice(pedido1.getId());
+
+        System.out.println(totalPrice);
+        System.out.println(totalPrice2);
+
 
 
 

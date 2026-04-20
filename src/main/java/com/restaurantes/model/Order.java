@@ -19,7 +19,7 @@ public class Order {
     private Integer NumeroPeople;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus = OrderStatus.PENDING;
+    private OrderStatus orderStatus; //= OrderStatus.PENDING;
 
     @ManyToOne
     private Restaurant restaurant;
