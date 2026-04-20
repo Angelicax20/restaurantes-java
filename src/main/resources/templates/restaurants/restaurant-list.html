@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Restaurante</title>
+</head>
+<body>
+
+<h1>Restaurantes Listados</h1>
+<p>Numero de restaurantes</p>
+
+
+<ul>
+    <li th:each="restaurant : ${restaurants}">  <!--nombre del controllador-->
+    <span th:text="${restaurant.name}"> </span>
+    </li>
+</ul>
+
+</body>
+</html>
