@@ -248,7 +248,7 @@ public class RestaurantesJavaApplication {
                 """;
 
         // CREAR PLATOS Y GUARDARLOS
-        Dish plato1 = new Dish(null, "Ensalada", "de puñetazos", 5.0, DishType.STARTER, restaurantSpain);
+        Dish plato1 = new Dish(null, "Ensalada", "de puñetazos", 15.0, DishType.STARTER, restaurantSpain);
         Dish plato2 = new Dish(null, "Lentejas", "con chorizo", 8.0, DishType.MAIN, restaurantSpain);
         Dish plato3 = new Dish(null, "Tarta de queso", null, 7.50, DishType.DESSERT, restaurantSpain);
         Dish plato4 = new Dish(null, "Champán", null, 60.0, DishType.DESSERT, restaurantSpain);
@@ -268,11 +268,12 @@ public class RestaurantesJavaApplication {
 
         //Crear un pedido
         Order pedido1 = new Order();
-        pedido1.setNumeroPeople(5);
+        pedido1.setNumeroPeople(2);
         pedido1.setTableNumber(1);
         pedido1.setRestaurant(restaurantSpain);
-        pedido1.setFecha(LocalDateTime.now());
-        pedido1.setTotalPrice(20.7);
+        //pedido1.setFecha(LocalDateTime.now());
+        //pedido1.setTotalPrice(10.7);
+        pedido1.setTip(2.0);
         //pedido1.setOrderStatus(OrderStatus.PENDING);
         orderRepository.save(pedido1);
 
@@ -296,12 +297,12 @@ public class RestaurantesJavaApplication {
 
         OrderLine ensalada = new OrderLine(1, plato1, pedido1);
         OrderLine lentejas = new OrderLine(2, plato2, pedido1);
-        OrderLine tarta = new OrderLine(1, plato3, pedido1);
-        OrderLine sopa = new OrderLine(1, plato4, pedido1);
+        OrderLine tarta = new OrderLine(2, plato3, pedido1);
+//        OrderLine sopa = new OrderLine(1, plato4, pedido1);
 
         //GUARDAR EN BD
        // orderLineRepository.saveAll(List.of(ensalada, lentejas, tarta,sopa));
-        List<OrderLine> lineasPedido = orderLineRepository.saveAll(List.of(ensalada, lentejas, tarta,sopa));
+        List<OrderLine> lineasPedido = orderLineRepository.saveAll(List.of(ensalada, lentejas, tarta));
 
         //CALCULAR PRECIO TOTAL EN JAVA:
         Double totalPrice = 0.0;
@@ -325,14 +326,7 @@ public class RestaurantesJavaApplication {
 
 
 
-
-
-
         // Opción 2: crear un pedido
-
-
-
-
 
         // resumen
         // findAll
