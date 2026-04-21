@@ -1,5 +1,7 @@
 package com.restaurantes.controller;
+import com.restaurantes.model.Dish;
 import com.restaurantes.model.Restaurant;
+import com.restaurantes.repository.DishRepository;
 import com.restaurantes.repository.RestaurantRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,11 +15,17 @@ import java.util.Optional;
 public class RestaurantController {
 
     //inyectar
-    private RestaurantRepository restaurantRepository;
+    private final RestaurantRepository restaurantRepository;
     //Constructor
-    public RestaurantController(RestaurantRepository restaurantRepository) {
+
+    private final DishRepository dishRepository;
+
+    public RestaurantController(RestaurantRepository restaurantRepository, DishRepository dishRepository) {
         this.restaurantRepository = restaurantRepository;
+        this.dishRepository = dishRepository;
     }
+
+
 
 
 //get all restaurants
@@ -39,15 +47,25 @@ public class RestaurantController {
             //existe el restaurante
             Restaurant restaurant= restaurants.get();
             model.addAttribute("restaurant", restaurant);
+                    //cargar los platos dish de este restaurante en el model
+            List<Dish>platos=dishRepository.findByRestaurantIdOrderByPrice((restaurant.getId()));
+            model.addAttribute("dishes", platos);
             return  "restaurants/restaurant-detail";
         } else {
             //no existe el restaurante
             model.addAttribute("errorMessage", "Restaurante no encontrado");
             return  "redirect:/restaurants";
         }
+
+        //Listado de platos
+
         //return "restaurants/restaurant-detail";
     }
-
-
+//Listado de platos
+//    @GetMapping("restaurants")
+//    public  String menuRestaurant(Model model){
+//
+//        return "restaurants/restaurant-menu";
+//    }
 }
 
