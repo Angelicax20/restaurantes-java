@@ -16,9 +16,31 @@
 <p th:unless="${restaurant.active}" style="color: red">Cerrado</p>
 
 <!--Listado de platos-->
-
+<h2>Menu carta de Platos</h2>
 <p th:text="${dishes.size()} + ' platos'"></p>
 
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Precio</th>
+            <th>Tipo de plato</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr th:each="dish:${dishes}">
+        <td th:text="${dish.id}"></td>
+        <td th:text="${dish.name}"></td>
+        <td th:text="${dish.description}"></td>
+        <td th:text="${dish.price}"></td>
+        <td th:text="${dish.dishType.label}"></td>
+        </tr>
+    </tbody>
+</table>
 
 
 
