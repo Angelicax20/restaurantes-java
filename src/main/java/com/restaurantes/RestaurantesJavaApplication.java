@@ -174,12 +174,14 @@ public class RestaurantesJavaApplication {
         Restaurant smashBurguer = new Restaurant();
         smashBurguer.setName("Smash Burguer Madrid");
         smashBurguer.setStartDate(LocalDate.now()); // fecha actual
+        smashBurguer.setActive(false);
         restaurantRepository.save(smashBurguer);
         System.out.println(smashBurguer);
 
         // fecha futura
         Restaurant sidreria = new Restaurant();
         sidreria.setName("Sidreria");
+        sidreria.setActive(false);
         sidreria.setStartDate(LocalDate.of(2026, 6, 25));
         restaurantRepository.save(sidreria);
         System.out.println(sidreria);

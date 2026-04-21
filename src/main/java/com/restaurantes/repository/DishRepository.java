@@ -12,4 +12,5 @@ public interface DishRepository extends JpaRepository<Dish, Long> {
     // ordenados por precio ascendente
     List<Dish> findByRestaurantIdOrderByPrice(Long id); // por defecto es ASCendente
     //List<Dish> findByRestaurantIdOrderByPriceAsc(Long id); // equivalente
+
 }

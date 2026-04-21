@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,15 +7,22 @@
 </head>
 <body>
 
-<h1>Restaurantes Listados</h1>
+<h1 th:text="${title}">Restaurantes Listados</h1>
 <p>Numero de restaurantes</p>
 
+<!--Imprimir numero de restaurantes-->
+<p th:text="|${#lists.size(restaurants)}resultados|"></p>
+<p th:text="|${restaurants.size()} resultados|"></p>
+<p th:text="|${numRestaurantes}resultados|"></p>
 
-<ul>
-    <li th:each="restaurant : ${restaurants}">  <!--nombre del controllador-->
-    <span th:text="${restaurant.name}"> </span>
-    </li>
-</ul>
+    <ul>
+        <li th:each="restaurant : ${restaurants}">  <!--nombre del controllador-->
+            <span th:text="${restaurant.name}"> </span>
+            <span th:text="${restaurant.averagePrice}"></span>
+            <a th:href="@{/restaurants/{id}(id=${restaurant.id})} ">Ver restaurante</a>
+
+        </li>
+    </ul>
 
 </body>
 </html>
