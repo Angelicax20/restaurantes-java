@@ -38,6 +38,12 @@
         <td th:text="${dish.description}"></td>
         <td th:text="${dish.price}"></td>
         <td th:text="${dish.dishType.label}"></td>
+
+            <td>
+<!--                ver plato-->
+<!--                crear controllador de dish-->
+                <a th:href="@{/dishes/{id}(id=${dish.id})}">Ver plato</a>
+            </td>
         </tr>
     </tbody>
 </table>
